@@ -1,1 +1,17 @@
-<p>final-average-calculation works!</p>
+<form [formGroup]="formGroup">
+  <div *ngFor="let evaluation of evaluations" class="grades" formGroupName="grades">
+    <mat-form-field class="spacing">
+      <input formArrayName="description" matInput placeholder="Nome da avaliação">
+    </mat-form-field>
+    <mat-form-field class="spacing">
+      <input formArrayName="grade" matInput placeholder="Nota">
+    </mat-form-field>
+    <mat-form-field class="spacing">
+      <input formControlName="weightGrade" matInput placeholder="Peso">
+    </mat-form-field>
+  </div>
+  <div class="number-evaluations">
+    <button mat-raised-button color="primary" (click)="add()">+</button>
+    <button id="calc" mat-raised-button color="primary" [disabled]="this.formGroup.invalid" (click)="calc()">Calcular</button>
+  </div>
+</form>

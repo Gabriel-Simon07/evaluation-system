@@ -29,3 +29,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## References
 
 * Commit pattern https://medium.com/linkapi-solutions/conventional-commits-pattern-3778d1a1e657
+
+* Markdown guide https://www.markdownguide.org/basic-syntax/
