@@ -1,4 +1,15 @@
 <form [formGroup]="formGroup">
+  <div class="grades">
+    <mat-form-field>
+      <input formControlName="numberEvaluations" matInput placeholder="Quantidade de notas">
+    </mat-form-field>
+    <button id="button" mat-fab color="primary" (click)="add()">
+      <mat-icon>add</mat-icon>
+    </button>
+    <button id="button" mat-fab color="primary" (click)="clear()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
   <div *ngFor="let evaluation of evaluations" class="grades" formGroupName="grades">
     <mat-form-field class="spacing">
       <input formArrayName="description" matInput placeholder="Nome da avaliação">
@@ -11,7 +22,6 @@
     </mat-form-field>
   </div>
   <div class="number-evaluations">
-    <button mat-raised-button color="primary" (click)="add()">+</button>
-    <button id="calc" mat-raised-button color="primary" [disabled]="this.formGroup.invalid" (click)="calc()">Calcular</button>
+    <button id="calc" mat-raised-button color="primary" (click)="calc()">Calcular</button>
   </div>
 </form>

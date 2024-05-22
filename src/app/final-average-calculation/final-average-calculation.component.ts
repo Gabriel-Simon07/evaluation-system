@@ -30,6 +30,10 @@ export class FinalAverageCalculationComponent implements OnInit {
   }
 
   public calc(): number {
+    if (this.formGroup.invalid) {
+      return 0;
+    }
+
     const grades = this.formGroup.get('grades')?.value;
     let finalGrade = 0.0;
 
@@ -41,11 +45,16 @@ export class FinalAverageCalculationComponent implements OnInit {
   }
 
   public add() {
-    let value = this.formGroup.get('numberEvaluations')?.value + 1;
+    let value = this.formGroup.get('numberEvaluations')?.value;
     let evaluation: number = Number(value);
     this.evaluations = [];
     while (evaluation > 0) {
       this.evaluations.push(evaluation--);
     }
+  }
+
+  public clear() {
+    this.evaluations = [];
+    this.formGroup.reset();
   }
 }
