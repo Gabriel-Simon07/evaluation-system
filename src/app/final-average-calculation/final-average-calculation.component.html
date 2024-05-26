@@ -12,16 +12,16 @@
   </div>
   <div *ngFor="let evaluation of evaluations" class="grades" formGroupName="grades">
     <mat-form-field class="spacing">
-      <input formArrayName="description" matInput placeholder="Nome da avaliação">
+      <input formControlName="description" matInput placeholder="Nome da avaliação">
     </mat-form-field>
     <mat-form-field class="spacing">
-      <input formArrayName="grade" matInput placeholder="Nota">
+      <input formControlName="grade" matInput placeholder="Nota">
     </mat-form-field>
     <mat-form-field class="spacing">
       <input formControlName="weightGrade" matInput placeholder="Peso">
     </mat-form-field>
-  </div>
-  <div class="number-evaluations">
-    <button id="calc" mat-raised-button color="primary" (click)="calc()">Calcular</button>
+    <div class="number-evaluations">
+      <span id="calc">{{'Nota ' + calc()}}</span>
+    </div>
   </div>
 </form>
