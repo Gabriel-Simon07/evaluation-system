@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Evaluation } from '../../core/final-average-calculation/interfaces/evaluation';
 
 @Component({
   selector: 'final-average-calculation',
@@ -11,7 +10,7 @@ export class FinalAverageCalculationComponent implements OnInit {
 
   public formGroup!: FormGroup;
   public evaluations!: number[];
-  public number = 0;
+
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
@@ -35,18 +34,12 @@ export class FinalAverageCalculationComponent implements OnInit {
     }
 
     const grades = this.formGroup.get('grades')?.value;
-    let finalGrade = 0.0;
-
-    grades.forEach((avaliacao: Evaluation) => {
-      finalGrade += avaliacao.grade * avaliacao.weightGrade;
-    });
-
-    return finalGrade;
+    return Number(grades.grade) * (Number(grades.weightGrade) / 100);
   }
 
   public add() {
     let value = this.formGroup.get('numberEvaluations')?.value;
-    let evaluation: number = Number(value);
+    let evaluation = Number(value);
     this.evaluations = [];
     while (evaluation > 0) {
       this.evaluations.push(evaluation--);
