@@ -1,5 +1,6 @@
+import { Evaluation } from './../../core/final-average-calculation/interfaces/evaluation';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'final-average-calculation',
@@ -10,6 +11,7 @@ export class FinalAverageCalculationComponent implements OnInit {
 
   public formGroup!: FormGroup;
   public evaluations!: number[];
+  public finalGrade: number = 0;
 
   constructor(private formBuilder: FormBuilder) {}
 
@@ -20,12 +22,12 @@ export class FinalAverageCalculationComponent implements OnInit {
   private getFormGroup() {
     this.formGroup = this.formBuilder.group({
       numberEvaluations: [undefined],
-      grades: this.formBuilder.group({
-        description: [undefined, Validators.compose([Validators.required])],
-        grade: [undefined, Validators.compose([Validators.required])],
-        weightGrade: [undefined, Validators.compose([Validators.required])]
-      })
+      grades: this.formBuilder.array([])
     });
+  }
+
+  get gradesArray(): FormArray {
+    return this.formGroup.get('grades') as FormArray;
   }
 
   public calc(): number {
@@ -33,21 +35,32 @@ export class FinalAverageCalculationComponent implements OnInit {
       return 0;
     }
 
-    const grades = this.formGroup.get('grades')?.value;
-    return Number(grades.grade) * (Number(grades.weightGrade) / 100);
+    this.formGroup.get('grades')?.value.forEach((value: Evaluation) => {
+      this.finalGrade += value.grade * (value.weightGrade / 100);
+    });
+    return this.finalGrade;
   }
 
   public add() {
     let value = this.formGroup.get('numberEvaluations')?.value;
-    let evaluation = Number(value);
-    this.evaluations = [];
-    while (evaluation > 0) {
-      this.evaluations.push(evaluation--);
+    if (value) {
+      for (let i = 0; i < value; i++) {
+        this.gradesArray.push(this.createGrade());
+      }
     }
   }
 
+  private createGrade(): FormGroup {
+    return this.formBuilder.group({
+      description: [undefined],
+      grade: [undefined, Validators.compose([Validators.required])],
+      weightGrade: [undefined, Validators.compose([Validators.required])]
+    });
+  }
+
   public clear() {
-    this.evaluations = [];
+    this.gradesArray.clear();
     this.formGroup.reset();
+    this.finalGrade = 0;
   }
 }
