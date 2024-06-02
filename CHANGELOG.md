@@ -1,4 +1,6 @@
 ## Feature
+* ES-5 - Implementada a funcionalidade de calcular várias notas e mostrar na tela.
+
 * ES-4 - Implementada a funcionalidade de calcular uma nota e mostrar na tela.
 
 * ES-3 - Botões de adicionar e limpar campos.
