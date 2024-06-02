@@ -1,4 +1,6 @@
 ## Feature
+* ES-6 - Roteamento adicionado.
+
 * ES-5 - Implementada a funcionalidade de calcular várias notas e mostrar na tela.
 
 * ES-4 - Implementada a funcionalidade de calcular uma nota e mostrar na tela.
